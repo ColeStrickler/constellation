@@ -29,6 +29,7 @@ case class ConstellationSystemBusParams(
     context.tlBusWrapperLocationMap += (loc -> constellation)
     constellation
   }
+  val rme = None
 }
 
 class ConstellationSystemBus(
@@ -40,7 +41,7 @@ class ConstellationSystemBus(
     r.prefix := addressPrefixNexusNode
     addressPrefixNexusNode
   }
-
+  val rme = None
   override def shouldBeInlined = inlineNoC
 
   private val system_bus_noc = noc_params match {
@@ -82,7 +83,7 @@ class ConstellationMemoryBus(mbus_params: MemoryBusParams, noc_params: TLNoCPara
     r.prefix := addressPrefixNexusNode
     addressPrefixNexusNode
   }
-
+  val rme = None
   private val memory_bus_noc = noc_params match {
     case params: GlobalTLNoCParams => context.asInstanceOf[CanHaveGlobalNoC].globalNoCDomain {
       LazyModule(new TLGlobalNoC(params, name))
@@ -124,7 +125,7 @@ class ConstellationPeripheryBus(pbus_params: PeripheryBusParams, noc_params: TLN
     r.prefix := addressPrefixNexusNode
     addressPrefixNexusNode
   }
-
+  val rme = None
   def genNoC()(implicit valName: ValName): TLNoCLike = noc_params match {
     case params: GlobalTLNoCParams => context.asInstanceOf[CanHaveGlobalNoC].globalNoCDomain {
       LazyModule(new TLGlobalNoC(params, name))
